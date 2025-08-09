@@ -1019,9 +1019,10 @@ GameObject:
   - component: {fileID: 3027451121305061861}
   - component: {fileID: 3300802157348184409}
   - component: {fileID: 3185225009300368958}
+  - component: {fileID: -7045932033871106119}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
+  m_Name: PlayerCorgi
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1111,6 +1112,24 @@ MonoBehaviour:
   _jumpInput: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _animator: {fileID: 3027451121305061861}
+--- !u!114 &-7045932033871106119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668915921450009824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2004597024
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &1710549716143349517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2658,6 +2677,7 @@ GameObject:
   - component: {fileID: 8280231768274084823}
   - component: {fileID: 4627250168986736262}
   - component: {fileID: 672307838165676428}
+  - component: {fileID: 4085055796327383290}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2783,6 +2803,22 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &4085055796327383290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848481808925444190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d73b0a95be81246699cf0d9ecdc01863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreferredRunner: 0
+  Components:
+  - {fileID: 4627250168986736262}
+  _guid: 70d3852d-b369-45dc-
 --- !u!1 &3856770858298088706
 GameObject:
   m_ObjectHideFlags: 0

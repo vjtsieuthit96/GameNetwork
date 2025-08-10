@@ -1,47 +1,62 @@
+﻿using Fusion;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour, ISpawned
 {
     [SerializeField] private CharacterController _characterController;    
     [SerializeField] private float _speed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private float _jumpForce = 1f;
-    private float _gravity = -9.81f;
     [SerializeField] private InputActionReference _lookInput;
     [SerializeField] private InputActionReference _jumpInput;
     [SerializeField] private InputActionReference _moveInput;   
     [SerializeField] private Animator _animator;
 
-    private Vector3 _velocity;
-    private bool _isGrounded;
+    private Vector3 _velocity; 
 
-    private void Update()
+    public override void Spawned()
     {
-        HandleJump();
+        base.Spawned();
+        if (!HasStateAuthority) return;
+        _characterController.enabled = true;
+    }
+    public override void FixedUpdateNetwork()
+    {
+        base.FixedUpdateNetwork();
+        if (!HasStateAuthority) return;
+        UpdateFalling();
+        UpdatMovement();
 
-        _characterController.Move(_speed * Time.deltaTime * GetMoveDirection() + _velocity * Time.deltaTime);
-        Rotation();
+        _characterController.Move(_velocity*Runner.DeltaTime);
         _animator.SetFloat("speed", GetMoveDirection().magnitude);
-    }
+        UpdateRotation();
+        
+    }      
 
-    private void HandleJump()
+    private void UpdatMovement()
     {
-        _isGrounded = _characterController.isGrounded;
-
-        if (_isGrounded && _velocity.y < 0)
-        {
-            _velocity.y = -2f;
-        }
-
-        if (_isGrounded && _jumpInput.action.triggered)
-        {
-            _velocity.y = Mathf.Sqrt(_jumpForce * -2f * _gravity);
-            _animator.SetTrigger("Jump");
-        }
-
-        _velocity.y += _gravity * Time.deltaTime;
+        var direction = _speed * GetMoveDirection();
+        _velocity.x = direction.x;
+        _velocity.z = direction.z;
+        
+        
     }
+    private void UpdateFalling()
+    {
+        if (_characterController.isGrounded)
+        {
+            _velocity.y = -1f;
+        }        
+            _velocity.y += Physics.gravity.y * Runner.DeltaTime;       
+    }
+
+    private void UpdateRotation()
+    {
+        var lookValues = _moveInput.action.ReadValue<Vector2>();
+        transform.Rotate(0, lookValues.x * _rotateSpeed * Runner.DeltaTime, 0);
+    }
+
 
     private Vector3 GetMoveDirection()
     {
@@ -49,10 +64,5 @@ public class PlayerMovement : MonoBehaviour
         var direction = transform.forward * inputValue.y + transform.right * inputValue.x;
         return direction = direction.normalized;
     }
-
-    private void Rotation()
-    {
-        var lookValues = _moveInput.action.ReadValue<Vector2>();
-        transform.Rotate(0, lookValues.x * _rotateSpeed * Time.deltaTime, 0);
-    }
+   
 }

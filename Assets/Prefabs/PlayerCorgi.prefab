@@ -1020,6 +1020,8 @@ GameObject:
   - component: {fileID: 3300802157348184409}
   - component: {fileID: 3185225009300368958}
   - component: {fileID: -7045932033871106119}
+  - component: {fileID: 5545318013883438341}
+  - component: {fileID: 2317687293251710332}
   m_Layer: 0
   m_Name: PlayerCorgi
   m_TagString: Player
@@ -1083,7 +1085,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 0.2
   m_Radius: 0.3
@@ -1128,8 +1130,41 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 3185225009300368958}
+  - {fileID: 5545318013883438341}
+  - {fileID: 2317687293251710332}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &5545318013883438341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668915921450009824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16161563765efa2438f8845b22a4c048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 6839416636662790238}
+--- !u!114 &2317687293251710332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668915921450009824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &1710549716143349517
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,7 +4760,7 @@ GameObject:
   - component: {fileID: 1459680530544360122}
   - component: {fileID: 8766400619289913801}
   m_Layer: 0
-  m_Name: CinemachineCamera
+  m_Name: PlayerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4739,13 +4774,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6839416636662790238}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15196118, y: -0, z: -0, w: 0.9883865}
-  m_LocalPosition: {x: 0, y: 0.99, z: -1.84}
+  m_LocalRotation: {x: 0.19968241, y: -0, z: -0, w: 0.9798607}
+  m_LocalPosition: {x: 0, y: 0.762, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2598495992446014175}
-  m_LocalEulerAnglesHint: {x: 17.481, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 23.037, y: 0, z: 0}
 --- !u!114 &8766400619289913801
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6180,11 +6180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474141742100322983, guid: 6cf43647e4797452ca8e8cc5521e6bec, type: 3}
       propertyPath: m_Colors.m_SelectedColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7474141742100322983, guid: 6cf43647e4797452ca8e8cc5521e6bec, type: 3}
       propertyPath: m_Colors.m_SelectedColor.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7474141742100322983, guid: 6cf43647e4797452ca8e8cc5521e6bec, type: 3}
       propertyPath: m_Colors.m_SelectedColor.r

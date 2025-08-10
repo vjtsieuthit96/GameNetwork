@@ -9,6 +9,7 @@ public class CharacterSelectionUI : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private Button readyButton;
     [SerializeField] private TextMeshProUGUI statusLabel;
+    private bool isReady = false;
 
     private void Awake()
     {
@@ -42,16 +43,22 @@ public class CharacterSelectionUI : MonoBehaviour
         var runner = FindAnyObjectByType<NetworkRunner>();
         var lobby = FindAnyObjectByType<LobbyManager>();
 
-        if (runner != null && lobby != null)
+        if (runner == null || lobby == null) return;
+
+        if (!isReady)
         {
             lobby.SetPlayerReady(runner.LocalPlayer);
+            statusLabel.text = "You are ready!";
+            readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Click to Cancel";
+            isReady = true;
         }
-
-        if (readyButton != null)
-            readyButton.interactable = false;
-
-        if (statusLabel != null)
-            statusLabel.text = " You are ready!";
+        else
+        {
+            lobby.UnsetPlayerReady(runner.LocalPlayer);
+            statusLabel.text = "You are not ready.";
+            readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ready";
+            isReady = false;
+        }
     }
 
     private void UpdateStatusLabel()
@@ -63,19 +70,18 @@ public class CharacterSelectionUI : MonoBehaviour
         int readyCount = 0;
         string statusText = "";
 
-        foreach (var player in runner.ActivePlayers)
+        foreach (var kvp in lobby.ReadyPlayers)
         {
-            bool isReady = lobby.IsPlayerReady(player);
-            string state = isReady ? "✅" : "❌";
-            statusText += $"Player {player.PlayerId}: {state}   ";
-
+            var player = kvp.Key;
+            bool isReady = kvp.Value;
+            string state = isReady ? "is ready" : "is not ready";
+            statusText += $"Player {player.PlayerId} {state}\n";
             if (isReady) readyCount++;
         }
 
-        if (runner.ActivePlayers.Count() == 2 && readyCount == 2)
+        if (lobby.ReadyPlayers.Count == 2 && readyCount == 2)
         {
             statusLabel.text = " All players are ready! Starting the match...";
-            //lobby.SpawnPlayers();
             gameObject.SetActive(false);
         }
         else

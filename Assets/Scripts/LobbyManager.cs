@@ -7,8 +7,7 @@ public class LobbyManager : NetworkBehaviour
     [Networked] public NetworkDictionary<PlayerRef, bool> ReadyPlayers { get; } = new NetworkDictionary<PlayerRef, bool>();
 
     [SerializeField] private GameObject[] playerPrefab;
-    [SerializeField] private Transform[] spawnPoints;
-    private bool hasSpawned = false;
+    [SerializeField] private Transform[] spawnPoints;    
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcSetPlayerReady(PlayerRef player)
     {
@@ -23,7 +22,7 @@ public class LobbyManager : NetworkBehaviour
         ReadyPlayers.Set(player, false);
         Debug.Log($"[RPC] Player {player.PlayerId} canceled ready");
 
-        CheckAllReady(); // vẫn kiểm tra lại
+        CheckAllReady();
     }
 
     public void UnsetPlayerReady(PlayerRef player)
@@ -62,9 +61,7 @@ public class LobbyManager : NetworkBehaviour
     private void CheckAllReady()
     {
         var runner = FindAnyObjectByType<NetworkRunner>();
-        if (runner == null) return;
-        if (hasSpawned) return;
-
+        if (runner == null) return;       
 
         if (runner.ActivePlayers.Count() != 2) return;
 
@@ -82,8 +79,7 @@ public class LobbyManager : NetworkBehaviour
         if (readyCount == 2)
         {            
             Debug.Log(readyCount + " players are ready. Spawning characters...");
-            SpawnPlayers();
-            hasSpawned = true;
+            SpawnPlayers();           
         }
     }
 

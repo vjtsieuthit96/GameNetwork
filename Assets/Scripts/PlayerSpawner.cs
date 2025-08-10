@@ -1,25 +1,39 @@
 ﻿using Fusion;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
 {
-    
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private Transform[] spawnPoint;
     [SerializeField] private TextMeshProUGUI statusLabel;
+
+    private List<PlayerRef> waitingPlayers = new List<PlayerRef>();
+
     void Awake()
     {
         _playerPrefab = GameManager.instance.playerPrefabs;
     }
+
     public void PlayerJoined(PlayerRef player)
     {
         Debug.Log($"Player {player.PlayerId} joined the game.");
-        if (player == Runner.LocalPlayer && Runner.ActivePlayers.Count() >=2)
-        {          
-            StartCoroutine(Spawn(player));
+        waitingPlayers.Add(player);
+
+        if (Runner.ActivePlayers.Count() >= 2)
+        {
+            statusLabel.text = "Ready to Start!";
+            foreach (var p in waitingPlayers)
+            {
+                if (p == Runner.LocalPlayer)
+                {
+                    StartCoroutine(Spawn(p));
+                }
+            }
+            waitingPlayers.Clear();
         }
         else
         {
@@ -39,5 +53,4 @@ public class PlayerSpawner : SimulationBehaviour, IPlayerJoined
         Runner.Spawn(_playerPrefab, spawnPoint[spawnIndex].position, spawnPoint[spawnIndex].rotation, player);
         statusLabel.text = "Player Spawned!";
     }
-
 }

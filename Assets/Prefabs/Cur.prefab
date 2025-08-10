@@ -1126,7 +1126,6 @@ GameObject:
   - component: {fileID: 4518017535166066369}
   - component: {fileID: 5822964646047473572}
   - component: {fileID: 2633794229113833107}
-  - component: {fileID: 3977561341200627658}
   m_Layer: 0
   m_Name: Cur
   m_TagString: Player
@@ -1214,7 +1213,7 @@ MonoBehaviour:
   _characterController: {fileID: 528375141479515561}
   networkCharacterController: {fileID: 5822964646047473572}
   _speed: 2
-  _rotateSpeed: 30
+  _rotateSpeed: 90
   _lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _jumpInput: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _moveInput: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -1272,7 +1271,7 @@ MonoBehaviour:
   acceleration: 10
   braking: 10
   maxSpeed: 2
-  rotationSpeed: 0
+  rotationSpeed: 5
 --- !u!114 &2633794229113833107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,20 +1285,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerObjects: []
---- !u!114 &3977561341200627658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639647778882885397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1541381998, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Guid:
-    RawGuidValue: 0f8075c435f95c146a2204b08d39cc59
 --- !u!1 &1701753242833688631
 GameObject:
   m_ObjectHideFlags: 0

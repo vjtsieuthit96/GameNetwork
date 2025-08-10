@@ -33,7 +33,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: corgi_Walking02
-  m_Speed: 1
+  m_Speed: 1.52
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2142729775488610810}
@@ -195,7 +195,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: corgi_Running
-  m_Speed: 1
+  m_Speed: 1.55
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2401924715032596050}
@@ -299,7 +299,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: corgi_Walking01
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8872245198272885388}

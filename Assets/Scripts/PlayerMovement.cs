@@ -4,16 +4,23 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : NetworkBehaviour, ISpawned
 {
-    [SerializeField] private CharacterController _characterController;    
+    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private NetworkCharacterController networkCharacterController;
     [SerializeField] private float _speed;
-    [SerializeField] private float _rotateSpeed;
-    [SerializeField] private float _jumpForce = 1f;
+    [SerializeField] private float _rotateSpeed;  
     [SerializeField] private InputActionReference _lookInput;
     [SerializeField] private InputActionReference _jumpInput;
     [SerializeField] private InputActionReference _moveInput;   
     [SerializeField] private Animator _animator;
+    private bool _isJump;
+    private float _rotateX;
 
-    private Vector3 _velocity; 
+    [Networked, OnChangedRender(nameof(OnVelocityChange))   ]
+    private Vector3 Velocity { get; set; }
+    private void OnVelocityChange()
+    {
+        _animator.SetFloat("speed", Velocity.magnitude);
+    }
 
     public override void Spawned()
     {
@@ -21,48 +28,50 @@ public class PlayerMovement : NetworkBehaviour, ISpawned
         if (!HasStateAuthority) return;
         _characterController.enabled = true;
     }
+    void Update()
+    {
+        var direction = _speed * GetMoveDirection();
+        Velocity = _speed * direction;
+        if (_jumpInput.action.triggered)
+        {
+            _isJump = true;
+        }
+        var lookValues = _lookInput.action.ReadValue<Vector2>();
+        _rotateX += lookValues.x * _rotateSpeed * Time.deltaTime;
+
+    }
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
         if (!HasStateAuthority) return;
-        UpdateFalling();
-        UpdatMovement();
-
-        _characterController.Move(_velocity*Runner.DeltaTime);
-        _animator.SetFloat("speed", GetMoveDirection().magnitude);
+        UpdateMovement();
         UpdateRotation();
-        
+
     }      
 
-    private void UpdatMovement()
+    private void UpdateMovement()
     {
-        var direction = _speed * GetMoveDirection();
-        _velocity.x = direction.x;
-        _velocity.z = direction.z;
-        
+       
+        networkCharacterController.Move(Velocity);            
+        if(_isJump)
+        {
+            networkCharacterController.Jump();
+            _isJump = false;
+        }
+       
         
     }
-    private void UpdateFalling()
+    private Vector3 GetMoveDirection()
     {
-        if (_characterController.isGrounded)
-        {
-            _velocity.y = -1f;
-        }        
-            _velocity.y += Physics.gravity.y * Runner.DeltaTime;       
+        var inputValues = _moveInput.action.ReadValue<Vector2>();
+        var direction = transform.forward * inputValues.y + transform.right * inputValues.x;
+        return direction = direction.normalized;
     }
 
     private void UpdateRotation()
     {
-        var lookValues = _moveInput.action.ReadValue<Vector2>();
-        transform.Rotate(0, lookValues.x * _rotateSpeed * Runner.DeltaTime, 0);
-    }
-
-
-    private Vector3 GetMoveDirection()
-    {
-        var inputValue = _moveInput.action.ReadValue<Vector2>();
-        var direction = transform.forward * inputValue.y + transform.right * inputValue.x;
-        return direction = direction.normalized;
+        transform.Rotate(0, _rotateX, 0);
+        _rotateX = 0; 
     }
    
 }

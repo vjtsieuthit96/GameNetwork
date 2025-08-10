@@ -13031,6 +13031,7 @@ namespace Fusion.Editor {
 
       var sw = System.Diagnostics.Stopwatch.StartNew();
 
+
       try {
         bool dirty = false;
         bool baked = false;

@@ -1,27 +1,27 @@
 ﻿
-using Fusion;
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class NetworkMenu : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField roomNameInput;
-    [SerializeField] private FusionBootstrap fusionBootstrap;
-
-    public void StartGameClick()
+    [SerializeField] private Button readybutton;
+    private void Update()
     {
-        fusionBootstrap.StartSharedClient();
-
+        readybutton.interactable = GameManager.instance.playerPrefabs != null;
+    }
+    public void LoadScene()
+    {        
+        SceneManager.LoadSceneAsync("Overview");
+    }
+    public void ChooseCharacter(GameObject character)
+    {
+        GameManager.instance.playerPrefabs = character;
     }
 
-    public void StartAsHost()
-    {
-        fusionBootstrap.StartHost();
-    }
-
-    public void StartAsClient()
-    {
-        fusionBootstrap.StartClient();
+    public void OnReadyClick()
+    {      
+        LoadScene();  
     }
 }
 

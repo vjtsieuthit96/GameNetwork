@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using Fusion;
-using TMPro; // Nếu dùng TextMeshPro
+using TMPro;
 
 public class FinishTrigger : MonoBehaviour
-{
-    [SerializeField] private GameObject winPanel;
-    [SerializeField] private TMP_Text winText;
+{    
+    [SerializeField] private TextMeshProUGUI winText;
 
     private bool hasWinner = false;
 
@@ -21,9 +20,6 @@ public class FinishTrigger : MonoBehaviour
         if (player == null) return;
 
         hasWinner = true;
-
-        // Hiển thị panel thắng cuộc
-        winPanel.SetActive(true);
         winText.text = $"Player {player.PlayerId} wins!";
     }
 }

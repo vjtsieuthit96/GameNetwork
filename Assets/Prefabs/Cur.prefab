@@ -1125,7 +1125,6 @@ GameObject:
   - component: {fileID: 8592003443304241944}
   - component: {fileID: 4518017535166066369}
   - component: {fileID: 5822964646047473572}
-  - component: {fileID: 2633794229113833107}
   m_Layer: 0
   m_Name: Cur
   m_TagString: Player
@@ -1238,7 +1237,6 @@ MonoBehaviour:
   - {fileID: 6202140747833338567}
   - {fileID: 4518017535166066369}
   - {fileID: 5822964646047473572}
-  - {fileID: 2633794229113833107}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &4518017535166066369
 MonoBehaviour:
@@ -1272,19 +1270,6 @@ MonoBehaviour:
   braking: 10
   maxSpeed: 2
   rotationSpeed: 5
---- !u!114 &2633794229113833107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639647778882885397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64a8468852dc60746aa0e366b19f1d45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerObjects: []
 --- !u!1 &1701753242833688631
 GameObject:
   m_ObjectHideFlags: 0
